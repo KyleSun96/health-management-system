@@ -2,15 +2,20 @@ package com.itheima.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.itheima.constant.MessageConstant;
+import com.itheima.constant.RedisConstant;
+import com.itheima.entity.PageResult;
+import com.itheima.entity.QueryPageBean;
 import com.itheima.entity.Result;
 import com.itheima.pojo.Setmeal;
 import com.itheima.service.SetmealService;
 import com.itheima.utils.QiNiuUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import redis.clients.jedis.JedisPool;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -24,6 +29,12 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/setmeal")
 public class SetmealController {
+
+    @Reference
+    private SetmealService setmealService;
+    @Autowired
+    private JedisPool jedisPool;
+
 
     /**
      * @Description: //TODO 图片上传到云服务器
@@ -45,6 +56,9 @@ public class SetmealController {
         try {
             // 将文件上传至七牛云服务器
             QiNiuUtils.uploadFile(multipartFile.getBytes(), fileName);
+            // 将上传的图片名称存入Redis,基于Redis的set集合存储
+            jedisPool.getResource().sadd(RedisConstant.SETMEAL_PIC_RESOURCES, fileName);
+
         } catch (IOException e) {
             e.printStackTrace();
             return new Result(false, MessageConstant.PIC_UPLOAD_FAIL);
@@ -58,10 +72,6 @@ public class SetmealController {
          */
         return new Result(true, MessageConstant.PIC_UPLOAD_SUCCESS, fileName);
     }
-
-
-    @Reference
-    private SetmealService setmealService;
 
 
     /**
@@ -78,5 +88,17 @@ public class SetmealController {
             return new Result(false, MessageConstant.ADD_SETMEAL_FAIL);
         }
         return new Result(true, MessageConstant.ADD_SETMEAL_SUCCESS);
+    }
+
+
+    /**
+     * @Description: //TODO 分页查询
+     * @Param: [queryPageBean]
+     * @return: com.itheima.entity.PageResult
+     */
+    @RequestMapping("/findPage.do")
+    public PageResult findPage(@RequestBody QueryPageBean queryPageBean) {
+        return setmealService.findPage(queryPageBean);
+
     }
 }

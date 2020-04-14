@@ -86,7 +86,7 @@
             <div class="filter-container">
                 <el-input placeholder="编码/名称/助记码" v-model="pagination.queryString" style="width: 200px;"
                           class="filter-item" @keyup.enter.native="handleFilter"></el-input>
-                <el-button @click="findPage()" class="dalfBut">查询</el-button>
+                <el-button @click="handleCurrentChange(1)" class="dalfBut">查询</el-button>
                 <el-button type="primary" class="butT" @click="handleCreate()">新建</el-button>
             </div>
             <el-table size="small" current-row-key="id" :data="dataList" stripe highlight-current-row>
@@ -329,6 +329,18 @@
 
             // 分页查询
             findPage() {
+                // 分页参数
+                var param = {
+                    currentPage: this.pagination.currentPage,
+                    pageSize: this.pagination.pageSize,
+                    queryString: this.pagination.queryString
+                };
+                // 后台请求
+                axios.post("/setmeal/findPage.do", param).then((res) => {
+                    // 为模型数据赋值,基于Vue的双向数据绑定,展示到页面
+                    this.pagination.total = res.data.total;
+                    this.dataList = res.data.rows;
+                });
             },
 
             // 重置表单
@@ -341,7 +353,8 @@
 
             // 切换页码
             handleCurrentChange(currentPage) {
-
+                this.pagination.currentPage = currentPage;
+                this.findPage();
             }
         }
     })
