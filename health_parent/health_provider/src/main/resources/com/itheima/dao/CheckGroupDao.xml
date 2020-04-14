@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.itheima.dao.CheckGroupDao">
+
+
+    <!--插入检查组数据-->
+    <insert id="add" parameterType="com.itheima.pojo.CheckGroup">
+        /*
+        通过mybatis框架提供的selectKey标签,获得自增产生的id值
+
+        执行顺序: 先执行insert语句将数据插入并且自增一个id,再执行selectKey获得
+        因此将selectKey的order设置为AFTER
+
+        keyProperty="id",这里的id不能随便写,是我们需要获取的CheckGroup对象的属性:id
+        让mybatis框架将数据库自动产生的id值,赋给传入进来的CheckGroup对象的id属性上
+        */
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            select last_insert_id()
+        </selectKey>
+        insert into t_checkgroup(code,name,sex,helpCode,remark,attention)
+        values
+        (#{code},#{name},#{sex},#{helpCode},#{remark},#{attention})
+    </insert>
+
+
+    <!--设置检查组和检查项的多对多的关联关系-->
+    <insert id="setRelOfGroupAndItem" parameterType="map">
+         insert into t_checkgroup_checkitem(checkgroup_id,checkitem_id)
+         values
+         (#{checkGroupId},#{checkitemId})
+    </insert>
+
+
+    <!--根据条件查询(用于分页查询中)-->
+    <select id="selectByCondition" parameterType="java.lang.String" resultType="com.itheima.pojo.CheckGroup">
+        select * from t_checkgroup
+        <if test="value != null and value != '' and value.length > 0">
+            where code = #{value} or name = #{value} or helpCode = #{value}
+        </if>
+    </select>
+
+
+    <!--根据ID查询检查组-->
+    <select id="findById" parameterType="int" resultType="com.itheima.pojo.CheckGroup">
+        select * from t_checkgroup where id = #{checkgroupId}
+    </select>
+
+
+    <!--根据检查组ID查询,检查组关联多少检查项ID-->
+    <select id="findRelOfGroupAndItem" parameterType="int" resultType="int">
+        select checkitem_id from t_checkgroup_checkitem where checkgroup_id = #{checkgroupId}
+    </select>
+
+
+    <!--根据ID动态修改 检查组相关字段-->
+    <update id="edit" parameterType="com.itheima.pojo.CheckGroup">
+        update t_checkgroup
+        -- set标签可以去除多余的逗号
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="sex != null">
+                sex = #{sex},
+            </if>
+            <if test="code != null">
+                code = #{code},
+            </if>
+            <if test="helpCode != null">
+                helpCode = #{helpCode},
+            </if>
+            <if test="attention != null">
+                attention = #{attention},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+
+    <!--清理当前检查组与检查项的关联关系-->
+    <delete id="deleteRelation" parameterType="int">
+        delete from t_checkgroup_checkitem where checkgroup_id = #{checkgroupId}
+    </delete>
+
+
+    <!--查询所有检查组-->
+    <select id="findAll" resultType="com.itheima.pojo.CheckGroup">
+         select * from t_checkgroup
+    </select>
+
+</mapper>
