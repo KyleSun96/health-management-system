@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.itheima.dao.OrderSettingDao">
+
+    <!--根据指定预约日期查询数据库是否已经设置-->
+    <select id="findCountByOrderDate" parameterType="date" resultType="long">
+        select count(id) from t_ordersetting where orderDate = #{orderDate}
+    </select>
+
+
+    <!--数据批量导入到数据库: 数据库已有设置_更新-->
+    <update id="editNumberByOrderDate" parameterType="com.itheima.pojo.OrderSetting">
+        update t_ordersetting
+        set number = #{number}
+        where orderDate = #{orderDate}
+    </update>
+
+
+    <!--数据批量导入到数据库: 数据库没有设置_添加-->
+    <insert id="add" parameterType="com.itheima.pojo.OrderSetting">
+        insert into t_ordersetting (orderDate,number,reservations)
+        values (#{orderDate},#{number},#{reservations})
+    </insert>
+
+
+    <!--根据月份查询该月份内所有的预约数据-->
+    <select id="getOrderSettingByMonth" parameterType="string" resultType="map">
+        SELECT
+            DATE_FORMAT( orderDate, "%d" ) AS date,
+            number,
+            reservations
+        FROM
+            t_ordersetting
+        WHERE
+            orderDate LIKE CONCAT(#{value},'%')
+    </select>
+
+
+
+
+</mapper>
