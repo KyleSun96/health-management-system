@@ -113,15 +113,12 @@ public class CheckGroupServiceImpl implements CheckGroupService {
     public void deleteById(Integer checkgroupId) {
         // 删除检查组前,需要查询该检查项是否关联到套餐中,若已经关联则不能删除
         long count = checkGroupDao.findSetmealCountById(checkgroupId);
-//        if (count > 0) {
-//            throw new RuntimeException();
-//        } else {
-//            // 若无关联,执行删除
-//            checkGroupDao.deleteById(checkgroupId);
-//        }
-        if (count > 0) throw new RuntimeException();
-        // 若无关联,执行删除
-        checkGroupDao.deleteById(checkgroupId);
+        if (count > 0) {
+            throw new RuntimeException();
+        } else {
+            // 若无关联,执行删除
+            checkGroupDao.deleteById(checkgroupId);
+        }
     }
 
 

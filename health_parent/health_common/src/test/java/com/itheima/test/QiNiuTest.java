@@ -14,9 +14,8 @@ import org.junit.Test;
 /**
  * @program: Itcast_health
  * @ClassName: QiNiuTest
- * @description: 七牛云
+ * @description: 七牛云功能测试, 与本项目主体无关
  * @author: KyleSun
- * @create: 15:28 2020/4/13
  **/
 public class QiNiuTest {
 
@@ -62,7 +61,7 @@ public class QiNiuTest {
 
     // 使用七牛云提供SDK将七牛云服务器中的图片删除
     @Test
-    public void deletePic(){
+    public void deletePic() {
 //构造一个带指定 Region 对象的配置类
         Configuration cfg = new Configuration(Zone.zone0());
 //...其他参数参考类注释
