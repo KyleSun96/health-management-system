@@ -99,6 +99,7 @@ public class SetmealController {
     @RequestMapping("/findPage.do")
     public PageResult findPage(@RequestBody QueryPageBean queryPageBean) {
         return setmealService.findPage(queryPageBean);
-
     }
+
+
 }

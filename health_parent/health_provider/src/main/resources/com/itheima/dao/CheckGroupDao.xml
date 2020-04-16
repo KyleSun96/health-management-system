@@ -37,7 +37,7 @@
     <select id="selectByCondition" parameterType="java.lang.String" resultType="com.itheima.pojo.CheckGroup">
         select * from t_checkgroup
         <if test="value != null and value != '' and value.length > 0">
-            where code = #{value} or name = #{value} or helpCode = #{value}
+            where code like concat('%',#{value},'%') or name like concat('%',#{value},'%') or helpCode like concat('%',#{value},'%')
         </if>
     </select>
 
@@ -92,5 +92,17 @@
     <select id="findAll" resultType="com.itheima.pojo.CheckGroup">
          select * from t_checkgroup
     </select>
+
+
+    <!--根据检查组Id统计: 检查组和套餐关系表中 已经关联该检查组的数据量-->
+    <select id="findSetmealCountById" parameterType="int" resultType="long">
+          select count(*) from t_setmeal_checkgroup where checkgroup_id = #{checkgroupId}
+    </select>
+
+
+    <!--根据检查组Id删除该检查组-->
+    <delete id="deleteById" parameterType="int">
+        delete from t_checkgroup where id = #{checkgroupId}
+    </delete>
 
 </mapper>

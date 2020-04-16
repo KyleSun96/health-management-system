@@ -122,4 +122,21 @@ public class CheckGroupController {
         }
     }
 
+
+    /**
+     * @Description: //TODO 根据检查组Id删除该检查组
+     * @Param: [checkgroupId]
+     * @return: com.itheima.entity.Result
+     */
+    @RequestMapping("/delete.do")
+    public Result delete(Integer checkgroupId) {
+        try {
+            checkGroupService.deleteById(checkgroupId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, MessageConstant.DELETE_CHECKGROUP_FAIL);
+        }
+        return new Result(true, MessageConstant.DELETE_CHECKGROUP_SUCCESS);
+    }
+
 }

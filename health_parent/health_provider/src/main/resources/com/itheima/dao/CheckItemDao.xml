@@ -17,7 +17,7 @@
     <select id="selectByCondition" parameterType="String" resultType="com.itheima.pojo.CheckItem">
         select * from t_checkitem
         <if test="value != null and value.length > 0">
-            where code = #{value} or name = #{value}
+            where code like concat('%',#{value},'%') or name like concat('%',#{value},'%')
         </if>
     </select>
 

@@ -37,5 +37,9 @@ public interface CheckGroupDao {
     // 查询所有检查组
     List<CheckGroup> findAll();
 
-    // 删除检查组
+    // 根据检查组Id统计: 检查组和套餐关系表中 已经关联该检查组的数据量
+    long findSetmealCountById(Integer checkgroupId);
+
+    // 根据检查组Id删除该检查组
+    void deleteById(Integer checkgroupId);
 }

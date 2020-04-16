@@ -8,12 +8,13 @@
     <artifactId>health_parent</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    
+
     <modules>
         <module>health_common</module>
         <module>health_interface</module>
         <module>health_provider</module>
         <module>health_backend</module>
+        <module>health_jobs</module>
     </modules>
 
 
@@ -162,6 +163,7 @@
                 <artifactId>commons-fileupload</artifactId>
                 <version>${commons-fileupload.version}</version>
             </dependency>
+            <!--定时任务组件-->
             <dependency>
                 <groupId>org.quartz-scheduler</groupId>
                 <artifactId>quartz</artifactId>

@@ -16,6 +16,7 @@
     <!--加载Redis配置文件-->
     <import resource="spring-redis.xml"/>
 
+    <!--有此配置已含有:开启注解的配置-->
     <mvc:annotation-driven>
         <!--消息转换器: 将java对象转换为json格式并返回页面-->
         <mvc:message-converters register-defaults="true">

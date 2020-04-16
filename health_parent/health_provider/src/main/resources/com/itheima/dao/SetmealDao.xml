@@ -19,9 +19,9 @@
         <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
             select last_insert_id()
         </selectKey>
-        insert into t_setmeal(name,code,helpCode,sex,age,price,remark,attention)
+        insert into t_setmeal(name,code,helpCode,sex,age,price,remark,attention,img)
         values
-        (#{name},#{code},#{helpCode},#{sex},#{age},#{price},#{remark},#{attention})
+        (#{name},#{code},#{helpCode},#{sex},#{age},#{price},#{remark},#{attention},#{img})
     </insert>
 
 
@@ -36,7 +36,7 @@
     <select id="selectByCondition" parameterType="string" resultType="com.itheima.pojo.Setmeal">
         select * from t_setmeal
         <if test="value !=null and value !='' and value.length > 0 ">
-            where code = #{value} or name = #{value} or helpCode = #{value}
+            where code like concat('%',#{value},'%') or name like concat('%',#{value},'%') or helpCode like concat('%',#{value},'%')
         </if>
     </select>
 

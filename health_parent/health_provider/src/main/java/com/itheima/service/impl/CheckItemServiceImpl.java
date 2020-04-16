@@ -57,9 +57,10 @@ public class CheckItemServiceImpl implements CheckItemService {
         long count = checkItemDao.findGroupCountById(id);
         if (count > 0) {
             throw new RuntimeException();
+        } else {
+            // 若无关联,执行删除
+            checkItemDao.deleteById(id);
         }
-        // 若无关联,执行删除
-        checkItemDao.deleteById(id);
     }
 
     // 编辑检查项
