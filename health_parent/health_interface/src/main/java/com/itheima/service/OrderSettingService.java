@@ -18,4 +18,7 @@ public interface OrderSettingService {
 
     // 根据月份查询该月份内所有的预约数据
     List<Map> getOrderSettingByMonth(String date);
+
+    // 根据日期设置最大可预约人数
+    void editNumberByDate(OrderSetting orderSetting);
 }

@@ -49,7 +49,8 @@
                     </div>
                     <div>
                         操作说明 : 请点击"模板下载"按钮获取模板文件，在模板文件中录入预约设置数据后点击"上传文件"按钮上传模板文件。
-                        数据填写参考格式 : 2020/10/10 200
+                        <br><br>
+                        数据填写参考格式 : 2020/10/10 &nbsp;&nbsp;&nbsp; 200
                     </div>
                 </el-card>
                 <div class="calendar">
@@ -153,7 +154,28 @@
 
             // 预约设置
             handleOrderSet(day) {
-
+                //alert(this.formatDate(day.getFullYear(),day.getMonth()+1,day.getDate()));
+                this.$prompt('请输入最大可预约人数', '预约设置', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    inputPattern: /^[0-9]*[1-9][0-9]*$/,
+                    inputErrorMessage: '预约人数只能为正整数'
+                }).then(({value}) => {	// value 是我们在页面中输入的值
+                    //发送ajax请求，将输入的数据提交到Controller
+                    axios.post("/ordersetting/editNumberByDate.do", {
+                        number: value,
+                        orderDate: this.formatDate(day.getFullYear(), day.getMonth() + 1, day.getDate()) //日期
+                    }).then((res) => {
+                        if (res.data.flag) {
+                            this.initData(this.formatDate(day.getFullYear(), day.getMonth() + 1, 1));
+                            this.$message.success(res.data.message);
+                        } else {
+                            this.$message.error(res.data.message);
+                        }
+                    });
+                }).catch(() => {
+                    this.$message.info('取消设置');
+                });
             },
 
             // 下载模板文件
@@ -263,6 +285,7 @@
                 } else {
                     mo = this.currentMonth;
                 }
+                // 发送ajax请求,根据当前页面对应的月份查询数据库,封装成相应的结果赋值给leftobj模型数据,用于页面展示
                 axios.post("/ordersetting/getOrderSettingByMonth.do?date=" + this.currentYear + "-" + mo).then((res) => {
                     if (res.data.flag) {
                         this.leftobj = res.data.data;
@@ -272,7 +295,7 @@
                 });
             },
 
-            //切换到当前月份
+            // 切换到当前月份
             goCurrentMonth: function (year, month) {
                 var d = new Date();
                 this.initData(this.formatDate(d.getFullYear(), d.getMonth() + 1, 1));

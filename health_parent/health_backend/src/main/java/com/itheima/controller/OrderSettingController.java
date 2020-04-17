@@ -6,6 +6,7 @@ import com.itheima.entity.Result;
 import com.itheima.pojo.OrderSetting;
 import com.itheima.service.OrderSettingService;
 import com.itheima.utils.POIUtils;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -65,6 +66,17 @@ public class OrderSettingController {
     @RequestMapping("/getOrderSettingByMonth.do")
     public Result getOrderSettingByMonth(String date) { // 从前端接受的date格式为 : yyyy-MM
         try {
+            /*
+                this.leftobj = [
+                    { date: 1, number: 120, reservations: 1 },
+                    { date: 3, number: 120, reservations: 119 },
+                    { date: 4, number: 120, reservations: 120 },
+                    { date: 6, number: 120, reservations: 1 },
+                    { date: 8, number: 120, reservations: 1 }
+                              ];
+                 前台数据为数组类型的json,分析页面数据的结构,
+                 可知我们使用 List<Map> 将每天的数据放入map中,再将每天放入list中 较好
+             */
             List<Map> leftobjList = orderSettingService.getOrderSettingByMonth(date);
             return new Result(true, MessageConstant.GET_ORDERSETTING_SUCCESS, leftobjList);
         } catch (Exception e) {
@@ -74,4 +86,20 @@ public class OrderSettingController {
     }
 
 
+    /**
+     * @Description: //TODO 根据日期设置最大可预约人数
+     * @Param: [orderSetting]
+     * @return: com.itheima.entity.Result
+     */
+    @RequestMapping("/editNumberByDate.do")
+    public Result editNumberByDate(@RequestBody OrderSetting orderSetting) {
+        // 由springmvc.xml中的消息转换器 将从前台接收到的json类型数据,转换为Date的orderDate
+        try {
+            orderSettingService.editNumberByDate(orderSetting);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, MessageConstant.ORDERSETTING_FAIL);
+        }
+        return new Result(true, MessageConstant.ORDERSETTING_SUCCESS);
+    }
 }

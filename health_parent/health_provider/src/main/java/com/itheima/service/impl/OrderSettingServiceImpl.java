@@ -57,4 +57,22 @@ public class OrderSettingServiceImpl implements OrderSettingService {
     public List<Map> getOrderSettingByMonth(String date) { // yyyy-MM
         return orderSettingDao.getOrderSettingByMonth(date);
     }
+
+
+    /**
+     * @Description: //TODO 根据日期设置最大可预约人数
+     * @Param: [orderSetting]
+     * @return: void
+     */
+    @Override
+    public void editNumberByDate(OrderSetting orderSetting) {
+        long count = orderSettingDao.findCountByOrderDate(orderSetting.getOrderDate());
+        if (count > 0) {
+            // 数据库已有设置 --> 更新
+            orderSettingDao.editNumberByOrderDate(orderSetting);
+        } else {
+            // 数据库没有设置 --> 添加
+            orderSettingDao.add(orderSetting);
+        }
+    }
 }

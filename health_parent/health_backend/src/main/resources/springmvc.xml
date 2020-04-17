@@ -16,9 +16,12 @@
     <!--加载Redis配置文件-->
     <import resource="spring-redis.xml"/>
 
-    <!--有此配置已含有:开启注解的配置-->
+    <!--有此配置已含有: 开启注解的配置-->
     <mvc:annotation-driven>
-        <!--消息转换器: 将java对象转换为json格式并返回页面-->
+        <!--
+            消息转换器: 将java对象转换为json格式并返回页面
+                      也可以将从前台接收到的json类型数据,转换为Date的orderDate
+        -->
         <mvc:message-converters register-defaults="true">
             <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
                 <property name="supportedMediaTypes" value="application/json"/>
