@@ -82,7 +82,7 @@
     </update>
 
 
-    <!--清理当前检查组与检查项的关联关系-->
+    <!--删除当前检查组与检查项的关联关系-->
     <delete id="deleteRelation" parameterType="int">
         delete from t_checkgroup_checkitem where checkgroup_id = #{checkgroupId}
     </delete>

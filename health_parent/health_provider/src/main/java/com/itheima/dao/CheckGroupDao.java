@@ -31,7 +31,7 @@ public interface CheckGroupDao {
     // 修改检查组基本信息 t_checkgroup
     void edit(CheckGroup checkGroup);
 
-    // 清理当前检查组与检查项的关联关系
+    // 删除当前检查组与检查项的关联关系
     void deleteRelation(Integer checkgroupId);
 
     // 查询所有检查组
