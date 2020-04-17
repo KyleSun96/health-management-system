@@ -49,7 +49,7 @@
                     </div>
                     <div>
                         操作说明 : 请点击"模板下载"按钮获取模板文件，在模板文件中录入预约设置数据后点击"上传文件"按钮上传模板文件。
-                        数据填写参考格式 : 2020/10/10	200
+                        数据填写参考格式 : 2020/10/10 200
                     </div>
                 </el-card>
                 <div class="calendar">
@@ -80,6 +80,7 @@
                         <!-- 日期 -->
                         <ul class="days">
                             <!-- v-for循环 每一次循环用<li>标签创建一天 -->
+                            <!--days是页面中展示的所有天(35天)-->
                             <li v-for="dayobject in days">
                                 <template>
                                     <!-- 非当前月份 -->
@@ -91,7 +92,9 @@
                                         <span class="datenumber">{{ dayobject.day.getDate()}}</span>
 
                                         <template>
+                                            <!--查询数据库,用leftobj[]装载: 页面显示指定月份中 已经进行了预约设置的数据  -->
                                             <template v-for="obj in leftobj">
+                                                <!--如果： 数据库已设置数据中_循环取到的这一天 == 当前月_循环取到的这一天 -->
                                                 <template v-if="obj.date == dayobject.day.getDate()">
                                                     <template v-if="obj.number > obj.reservations">
                                                         <div class="usual">
@@ -139,7 +142,7 @@
             currentYear: 1970,
             currentWeek: 1,
             days: [],
-            leftobj: []//用于装载页面显示的月份已经进行预约设置的数据
+            leftobj: []//查询数据库,用 leftobj[]装载: 页面显示指定月份中 已经进行了预约设置的数据
         },
 
         created: function () {//在vue初始化时调用
@@ -292,7 +295,7 @@
                 this.initData(this.formatDate(d.getFullYear(), d.getMonth() + 1, 1));
             },
 
-            // 返回 类似 2016-01-02 格式的字符串
+            // 返回 类似 2020-02-02 格式的字符串
             formatDate: function (year, month, day) {
                 var y = year;
                 var m = month;

@@ -25,7 +25,7 @@ public class OrderSettingServiceImpl implements OrderSettingService {
 
 
     /**
-     * @Description: //TODO 数据批量导入到数据库
+     * @Description: //TODO 预约设置数据批量导入到数据库
      * @Param: [orderSettings]
      * @return: void
      */

@@ -4,13 +4,13 @@
 
 <mapper namespace="com.itheima.dao.OrderSettingDao">
 
-    <!--根据指定预约日期查询数据库是否已经设置-->
+    <!--根据指定预约日期查询数据库是否已存在-->
     <select id="findCountByOrderDate" parameterType="date" resultType="long">
         select count(id) from t_ordersetting where orderDate = #{orderDate}
     </select>
 
 
-    <!--数据批量导入到数据库: 数据库已有设置_更新-->
+    <!--预约设置数据批量导入到数据库: 数据库已有设置_更新-->
     <update id="editNumberByOrderDate" parameterType="com.itheima.pojo.OrderSetting">
         update t_ordersetting
         set number = #{number}
@@ -18,7 +18,7 @@
     </update>
 
 
-    <!--数据批量导入到数据库: 数据库没有设置_添加-->
+    <!--预约设置数据批量导入到数据库: 数据库没有设置_添加-->
     <insert id="add" parameterType="com.itheima.pojo.OrderSetting">
         insert into t_ordersetting (orderDate,number,reservations)
         values (#{orderDate},#{number},#{reservations})

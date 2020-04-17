@@ -46,7 +46,7 @@ public class OrderSettingController {
                     OrderSetting orderSetting = new OrderSetting(new Date(strings[0]), Integer.valueOf(strings[1]));
                     orderSettings.add(orderSetting);
                 }
-                // 通过dubbo远程调用服务实现数据批量导入到数据库
+                // 通过dubbo远程调用服务实现数据 批量导入到数据库
                 orderSettingService.add(orderSettings);
             }
         } catch (IOException e) {
