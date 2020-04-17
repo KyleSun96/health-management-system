@@ -31,16 +31,18 @@ public class OrderSettingServiceImpl implements OrderSettingService {
      */
     @Override
     public void add(List<OrderSetting> orderSettings) {
-        if (orderSettingDao != null && orderSettings.size() > 0) {
-            for (OrderSetting orderSetting : orderSettings) {
-                long count = orderSettingDao.findCountByOrderDate(orderSetting.getOrderDate());
-                if (count > 0) {
-                    // 数据库已有设置 --> 更新
-                    orderSettingDao.editNumberByOrderDate(orderSetting);
-                } else {
-                    // 数据库没有设置 --> 添加
-                    orderSettingDao.add(orderSetting);
-                }
+        if (orderSettings == null || orderSettings.size() == 0) {
+            return;
+        }
+
+        for (OrderSetting orderSetting : orderSettings) {
+            long count = orderSettingDao.findCountByOrderDate(orderSetting.getOrderDate());
+            if (count > 0) {
+                // 数据库已有设置 --> 更新
+                orderSettingDao.editNumberByOrderDate(orderSetting);
+            } else {
+                // 数据库没有设置 --> 添加
+                orderSettingDao.add(orderSetting);
             }
         }
     }

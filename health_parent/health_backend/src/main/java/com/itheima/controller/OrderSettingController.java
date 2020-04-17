@@ -41,7 +41,7 @@ public class OrderSettingController {
         try {
             List<String[]> list = POIUtils.readExcel(multipartFile);
             if (list != null && list.size() > 0) {
-                List<OrderSetting> orderSettings = new ArrayList<>();
+                ArrayList<OrderSetting> orderSettings = new ArrayList<>();
                 for (String[] strings : list) {
                     OrderSetting orderSetting = new OrderSetting(new Date(strings[0]), Integer.valueOf(strings[1]));
                     orderSettings.add(orderSetting);

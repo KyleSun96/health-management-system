@@ -48,7 +48,8 @@
                         </el-upload>
                     </div>
                     <div>
-                        操作说明：请点击"模板下载"按钮获取模板文件，在模板文件中录入预约设置数据后点击"上传文件"按钮上传模板文件。
+                        操作说明 : 请点击"模板下载"按钮获取模板文件，在模板文件中录入预约设置数据后点击"上传文件"按钮上传模板文件。
+                        数据填写参考格式 : 2020/10/10	200
                     </div>
                 </el-card>
                 <div class="calendar">
@@ -149,6 +150,7 @@
 
             // 预约设置
             handleOrderSet(day) {
+
             },
 
             // 下载模板文件
@@ -210,7 +212,7 @@
                 var str = this.formatDate(this.currentYear, this.currentMonth, this.currentDay);
                 this.days.length = 0;
                 // 今天是周日，放在第一行第7个位置，前面6个
-                //初始化本周
+                // 初始化本周
                 for (var i = this.currentWeek - 1; i >= 0; i--) {
                     var d = new Date(str);
                     d.setDate(d.getDate() - i);
@@ -265,7 +267,6 @@
                         this.$message.error(res.data.message);
                     }
                 });
-
             },
 
             //切换到当前月份
