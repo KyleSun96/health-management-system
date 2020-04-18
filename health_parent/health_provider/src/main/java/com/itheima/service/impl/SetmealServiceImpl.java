@@ -34,7 +34,11 @@ public class SetmealServiceImpl implements SetmealService {
     private JedisPool jedisPool;
 
 
-    // 新增套餐,同时需要关联检查组
+    /**
+     * @Description: //TODO 新增套餐,同时需要关联检查组
+     * @Param: [setmeal, checkgroupIds]
+     * @return: void
+     */
     @Override
     public void add(Setmeal setmeal, Integer[] checkgroupIds) {
         // 新增套餐_1_插入套餐数据
@@ -49,11 +53,14 @@ public class SetmealServiceImpl implements SetmealService {
         resource.sadd(RedisConstant.SETMEAL_PIC_DB_RESOURCES, fileName);
         // 用完必须要归还资源!不归还线上很快就满了
         resource.close();
-
     }
 
 
-    // 分页查询
+    /**
+     * @Description: //TODO 分页查询
+     * @Param: [queryPageBean]
+     * @return: com.itheima.entity.PageResult
+     */
     @Override
     public PageResult findPage(QueryPageBean queryPageBean) {
 
@@ -70,7 +77,11 @@ public class SetmealServiceImpl implements SetmealService {
     }
 
 
-    // 设置套餐和检查项的多对多的关联关系
+    /**
+     * @Description: //TODO 设置套餐和检查项的多对多的关联关系
+     * @Param: [setmealId, checkgroupIds]
+     * @return: void
+     */
     public void setRelOfMealAndGroup(Integer setmealId, Integer[] checkgroupIds) {
 
         if (checkgroupIds != null && checkgroupIds.length > 0) {

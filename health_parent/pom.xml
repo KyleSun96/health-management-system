@@ -15,6 +15,7 @@
         <module>health_provider</module>
         <module>health_backend</module>
         <module>health_jobs</module>
+        <module>health_mobile</module>
     </modules>
 
 

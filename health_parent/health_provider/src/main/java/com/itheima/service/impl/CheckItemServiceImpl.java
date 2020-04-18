@@ -17,6 +17,7 @@ import java.util.List;
  * @program: Itcast_health
  * @ClassName: CheckItemServiceImpl
  * @description: 检查项服务
+ * @author: KyleSun
  **/
 //用dubbo的service接口,用于暴露服务
 @Service(interfaceClass = CheckItemService.class)
@@ -26,13 +27,22 @@ public class CheckItemServiceImpl implements CheckItemService {
     @Autowired
     private CheckItemDao checkItemDao;
 
-    // 新增检查项
+    /**
+     * @Description: //TODO 新增检查项
+     * @Param: [checkItem]
+     * @return: void
+     */
     @Override
     public void add(CheckItem checkItem) {
         checkItemDao.add(checkItem);
     }
 
-    // 检查项分页查询
+
+    /**
+     * @Description: //TODO 检查项分页查询
+     * @Param: [queryPageBean]
+     * @return: com.itheima.entity.PageResult
+     */
     @Override
     public PageResult findPage(QueryPageBean queryPageBean) {
         Integer currentPage = queryPageBean.getCurrentPage();
@@ -50,7 +60,12 @@ public class CheckItemServiceImpl implements CheckItemService {
         return new PageResult(total, rows);
     }
 
-    // 删除检查项
+
+    /**
+     * @Description: //TODO 删除检查项
+     * @Param: [id]
+     * @return: void
+     */
     @Override
     public void deleteById(Integer id) {
         // 删除检查项前,需要查询该检查项是否关联到检查组中,若已经关联则不能删除
@@ -63,19 +78,34 @@ public class CheckItemServiceImpl implements CheckItemService {
         }
     }
 
-    // 编辑检查项
+
+    /**
+     * @Description: //TODO 编辑检查项
+     * @Param: [checkItem]
+     * @return: void
+     */
     @Override
     public void edit(CheckItem checkItem) {
         checkItemDao.edit(checkItem);
     }
 
-    // 根据检查项Id查询数据
+
+    /**
+     * @Description: //TODO 根据检查项Id查询数据
+     * @Param: [id]
+     * @return: com.itheima.pojo.CheckItem
+     */
     @Override
     public CheckItem findById(Integer id) {
         return checkItemDao.findById(id);
     }
 
-    // 查询所有检查项
+
+    /**
+     * @Description: //TODO 查询所有检查项
+     * @Param: []
+     * @return: java.util.List<com.itheima.pojo.CheckItem>
+     */
     @Override
     public List<CheckItem> findAll() {
         return checkItemDao.findAll();
