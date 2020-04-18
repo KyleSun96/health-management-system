@@ -4,16 +4,18 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0,user-scalable=no,minimal-ui">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0,user-scalable=no,minimal-ui">
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../img/asset-favico.ico">
     <title>预约详情</title>
-    <link rel="stylesheet" href="../css/page-health-orderDetail.css" />
+    <link rel="stylesheet" href="../css/page-health-orderDetail.css"/>
     <script src="../plugins/vue/vue.js"></script>
     <script src="../plugins/vue/axios-0.18.0.js"></script>
     <script src="../plugins/healthmobile.js"></script>
     <script>
+        // 根据请求URL中的参数名称获取对应的值
         var id = getUrlParam("id");
     </script>
 </head>
@@ -29,7 +31,7 @@
     <div class="contentBox">
         <div class="card">
             <div class="project-img">
-                <img :src="imgUrl" width="100%" height="100%" />
+                <img :src="imgUrl" width="100%" height="100%"/>
             </div>
             <div class="project-text">
                 <h4 class="tit">{{setmeal.name}}</h4>
@@ -80,21 +82,22 @@
 </div>
 <script>
     var vue = new Vue({
-        el:'#app',
-        data:{
-            imgUrl:null,//套餐对应的图片链接
-            setmeal:{}
+        el: '#app',
+        data: {
+            imgUrl: null,//套餐对应的图片链接
+            setmeal: {}
         },
-        methods:{
-            toOrderInfo(){
+        methods: {
+            toOrderInfo() {
                 window.location.href = "orderInfo.html?id=" + id;
             }
         },
-        mounted(){
-            axios.post("/setmeal/findById.do?id=" + id).then((response) => {
-                if(response.data.flag){
-                    this.setmeal = response.data.data;
-                    this.imgUrl = 'http://pqjroc654.bkt.clouddn.com/' + this.setmeal.img;
+        mounted() {
+            // 发送ajax请求,根据套的ID查询详细信息(包括套餐基本信息,套餐包含的检查组信息,检查组包含的检查项信息)
+            axios.post("/setmeal/findById.do?id=" + id).then((res) => {
+                if (res.data.flag) {
+                    this.setmeal = res.data.data;
+                    this.imgUrl = 'http://q8pf3mrom.bkt.clouddn.com/' + this.setmeal.img;
                 }
             });
         }

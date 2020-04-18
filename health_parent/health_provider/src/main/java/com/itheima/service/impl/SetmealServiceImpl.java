@@ -4,9 +4,13 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.itheima.constant.RedisConstant;
+import com.itheima.dao.CheckGroupDao;
+import com.itheima.dao.CheckItemDao;
 import com.itheima.dao.SetmealDao;
 import com.itheima.entity.PageResult;
 import com.itheima.entity.QueryPageBean;
+import com.itheima.pojo.CheckGroup;
+import com.itheima.pojo.CheckItem;
 import com.itheima.pojo.Setmeal;
 import com.itheima.service.SetmealService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +29,13 @@ import java.util.Map;
  * @author: KyleSun
  **/
 @Service(interfaceClass = SetmealService.class)
-@Transactional()
+@Transactional
 public class SetmealServiceImpl implements SetmealService {
 
+    @Autowired
+    private CheckItemDao checkItemDao;
+    @Autowired
+    private CheckGroupDao checkGroupDao;
     @Autowired
     private SetmealDao setmealDao;
     @Autowired
@@ -74,6 +82,42 @@ public class SetmealServiceImpl implements SetmealService {
         List<Setmeal> rows = page.getResult();
 
         return new PageResult(total, rows);
+    }
+
+
+    /**
+     * @Description: //TODO 查询所有套餐
+     * @Param: []
+     * @return: java.util.List<com.itheima.pojo.Setmeal>
+     */
+    @Override
+    public List<Setmeal> findAll() {
+        return setmealDao.findAll();
+    }
+
+
+    /**
+     * @Description: //TODO 根据套餐的ID查询详细信息(包括套餐基本信息,套餐包含的检查组信息,检查组包含的检查项信息)
+     * @Param: [id]
+     * @return: com.itheima.pojo.Setmeal
+     */
+    @Override
+    public Setmeal findById(int id) {
+        Setmeal setmeal = setmealDao.findById(id);
+        int[] ids = new int[]{id};
+        /*
+            此处的套餐id只有一个,此时的 for(int setmealId : ids) 循环可以省略
+            但是当id有多个时,就会像下面的检查组的id一样进行循环
+        */
+        for (int setmealId : ids) {
+            List<CheckGroup> checkGroups = checkGroupDao.listGroupsBySetmealId(setmealId);
+            for (CheckGroup checkGroup : checkGroups) {
+                List<CheckItem> checkItems = checkItemDao.listItemsBycheckGroupId(checkGroup.getId());
+                checkGroup.setCheckItems(checkItems);
+            }
+            setmeal.setCheckGroups(checkGroups);
+        }
+        return setmeal;
     }
 
 

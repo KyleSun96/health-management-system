@@ -42,4 +42,7 @@ public interface CheckGroupDao {
 
     // 根据检查组Id删除该检查组
     void deleteById(Integer checkgroupId);
+
+    // 根据套餐Id找出: 检查组和套餐关系表中 已经关联该套餐的组
+    List<CheckGroup> listGroupsBySetmealId(int setmealId);
 }

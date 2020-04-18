@@ -37,7 +37,8 @@
     <select id="selectByCondition" parameterType="java.lang.String" resultType="com.itheima.pojo.CheckGroup">
         select * from t_checkgroup
         <if test="value != null and value != '' and value.length > 0">
-            where code like concat('%',#{value},'%') or name like concat('%',#{value},'%') or helpCode like concat('%',#{value},'%')
+            where code like concat('%',#{value},'%') or name like concat('%',#{value},'%') or helpCode like
+            concat('%',#{value},'%')
         </if>
     </select>
 
@@ -104,5 +105,16 @@
     <delete id="deleteById" parameterType="int">
         delete from t_checkgroup where id = #{checkgroupId}
     </delete>
+
+
+    <!--根据套餐Id找出: 检查组和套餐关系表中 已经关联该套餐的组-->
+    <select id="listGroupsBySetmealId" parameterType="int" resultType="com.itheima.pojo.CheckGroup">
+        SELECT
+            *
+        FROM
+            t_checkgroup
+        WHERE
+            id IN ( SELECT checkgroup_id FROM t_setmeal_checkgroup WHERE setmeal_id = #{value} )
+    </select>
 
 </mapper>

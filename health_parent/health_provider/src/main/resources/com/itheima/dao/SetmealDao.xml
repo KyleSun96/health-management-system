@@ -33,11 +33,26 @@
     </insert>
 
 
+    <!--根据条件查询套餐-->
     <select id="selectByCondition" parameterType="string" resultType="com.itheima.pojo.Setmeal">
         select * from t_setmeal
         <if test="value !=null and value !='' and value.length > 0 ">
-            where code like concat('%',#{value},'%') or name like concat('%',#{value},'%') or helpCode like concat('%',#{value},'%')
+            where code like concat('%',#{value},'%')
+            or name like concat('%',#{value},'%') or helpCode like concat('%',#{value},'%')
         </if>
     </select>
+
+
+    <!--查询所有套餐-->
+    <select id="findAll" resultType="com.itheima.pojo.Setmeal">
+         select * from t_setmeal
+    </select>
+
+
+    <!--根据套餐的ID查询详细信息(包括套餐基本信息,套餐包含的检查组信息,检查组包含的检查项信息)-->
+    <select id="findById" parameterType="int" resultType="com.itheima.pojo.Setmeal">
+        select * from t_setmeal where id = #{id}
+    </select>
+
 
 </mapper>

@@ -32,4 +32,7 @@ public interface CheckItemDao {
 
     // 查询所有检查项
     List<CheckItem> findAll();
+
+    // 根据检查组Id找出: 检查项和检查组关系表中 已经关联该检查组的项目
+    List<CheckItem> listItemsBycheckGroupId(Integer id);
 }

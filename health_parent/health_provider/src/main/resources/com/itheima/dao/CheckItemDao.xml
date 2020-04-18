@@ -80,4 +80,14 @@
     </select>
 
 
+    <!--根据检查组Id找出: 检查项和检查组关系表中 已经关联该检查组的项目-->
+    <select id="listItemsBycheckGroupId" parameterType="int" resultType="com.itheima.pojo.CheckItem">
+        SELECT
+            *
+        FROM
+            t_checkitem
+        WHERE
+            id IN ( SELECT checkitem_id FROM t_checkgroup_checkitem WHERE checkgroup_id = #{value} )
+    </select>
+
 </mapper>
