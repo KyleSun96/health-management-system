@@ -30,3 +30,6 @@ hs_err_pid*
 **/.idea/
 **/target
 **/rebel.xml
+**/.rebel.xml.bak
+**/.rebel-remote.xml.bak
+
