@@ -75,7 +75,6 @@ public class SetmealServiceImpl implements SetmealService {
 
         // 当添加套餐后,需要重新生成当前方法所需的所有静态页面: 套餐列表页面 + 套餐详情页面
         this.generateMobileStaticHtml();
-
     }
 
 
@@ -101,7 +100,7 @@ public class SetmealServiceImpl implements SetmealService {
      * @Param: [list]
      * @return: void
      */
-    private void generateMobileSetmealDetailHtml(List<Setmeal> list) {
+    private void generateMobileSetmealListHtml(List<Setmeal> list) {
         Map map = new HashMap();
         //为模板提供数据,用于生成静态页面,key必须和接收数据页面的名称相一致
         map.put("setmealList", list);
@@ -114,9 +113,10 @@ public class SetmealServiceImpl implements SetmealService {
      * @Param: [list]
      * @return: void
      */
-    private void generateMobileSetmealListHtml(List<Setmeal> list) {
+    private void generateMobileSetmealDetailHtml(List<Setmeal> list) {
         for (Setmeal setmeal : list) {
             Map map = new HashMap();
+            // 这里不能直接返回 setmeal ,这里的数据应经过查询后再返回,拿到其中的检查组和检查项信信息
             map.put("setmeal", this.findById(setmeal.getId()));
             this.generteHtml("mobile_setmeal_detail.ftl",
                     "setmeal_detail_" + setmeal.getId() + ".html", map);

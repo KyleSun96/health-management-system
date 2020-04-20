@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * @program: Itcast_health
+ * @Program: Itcast_health
  * @ClassName: Setmealcontroller
- * @description: 移动端套餐管理
- * @author: KyleSun
+ * @Description: 移动端套餐管理
+ * @Author: KyleSun
  **/
 
 @RestController
@@ -27,8 +27,8 @@ public class Setmealcontroller {
 
 
     /**
-     * @Description: //TODO 查询所有套餐
-     * @Param: []
+     * @description: //TODO 查询所有套餐
+     * @param: []
      * @return: com.itheima.entity.Result
      */
     @RequestMapping("/getAllSetmeal.do")
@@ -44,8 +44,8 @@ public class Setmealcontroller {
 
 
     /**
-     * @Description: //TODO 根据套餐的ID查询详细信息(包括套餐基本信息,套餐包含的检查组信息,检查组包含的检查项信息)
-     * @Param: [id]
+     * @description: //TODO 根据套餐的ID查询详细信息(包括套餐基本信息,套餐包含的检查组信息,检查组包含的检查项信息)
+     * @param: [id]
      * @return: com.itheima.entity.Result
      */
     @RequestMapping("/findById.do")

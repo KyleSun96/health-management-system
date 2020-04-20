@@ -1,5 +1,11 @@
 package com.itheima.constant;
 
+/**
+ * @Program: Itcast_health
+ * @ClassName: RedisMessageConstant
+ * @Description: 用于区分不同类型的验证码
+ * @Author: KyleSun
+ **/
 public class RedisMessageConstant {
 
     //用于缓存体检预约时发送的验证码
