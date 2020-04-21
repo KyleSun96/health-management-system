@@ -140,10 +140,24 @@
                 });
             },
 
-            //提交预约
+            // 提交预约
             submitOrder() {
+                let idCard = this.orderInfo.idCard;
+                // 对用户输入的身份证号进行校验
+                if (!checkIdCard(idCard)) {
+                    // 身份证号输入不合法
+                    this.$message.error("身份证号码输入错误，请重新输入");
+                    return false;
+                }
+                // 发送ajax请求，提交表单数据到后台进行业务处理
+                axios.post("/order/submit.do", this.orderInfo).then((res) => {
+                    if (res.data.flag) {
+                        window.location.href = "orderSuccess.html?orderId=" + res.data.data;
+                    } else {
+                        this.$message.error(res.data.message);
+                    }
+                });
             }
-
         },
 
         mounted() {

@@ -101,7 +101,7 @@ public class SetmealServiceImpl implements SetmealService {
      * @return: void
      */
     private void generateMobileSetmealListHtml(List<Setmeal> list) {
-        Map map = new HashMap();
+        Map<String, Object> map = new HashMap<>();
         //为模板提供数据,用于生成静态页面,key必须和接收数据页面的名称相一致
         map.put("setmealList", list);
         this.generteHtml("mobile_setmeal.ftl", "setmeal_list.html", map);
@@ -115,7 +115,7 @@ public class SetmealServiceImpl implements SetmealService {
      */
     private void generateMobileSetmealDetailHtml(List<Setmeal> list) {
         for (Setmeal setmeal : list) {
-            Map map = new HashMap();
+            Map<String, Object> map = new HashMap<>();
             // 这里不能直接返回 setmeal ,这里的数据应经过查询后再返回,拿到其中的检查组和检查项信信息
             map.put("setmeal", this.findById(setmeal.getId()));
             this.generteHtml("mobile_setmeal_detail.ftl",
@@ -129,7 +129,7 @@ public class SetmealServiceImpl implements SetmealService {
      * @Param: [templateName, htmlPageName, map]
      * @return: void
      */
-    public void generteHtml(String templateName, String htmlPageName, Map map) {
+    public void generteHtml(String templateName, String htmlPageName, Map<String, Object> map) {
         // 获得配置对象
         Configuration configuration = freeMarkerConfigurer.getConfiguration();
         // 构造输出流
