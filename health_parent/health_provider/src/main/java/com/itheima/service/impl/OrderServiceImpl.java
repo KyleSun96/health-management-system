@@ -111,4 +111,20 @@ public class OrderServiceImpl implements OrderService {
         return new Result(true, MessageConstant.ORDER_SUCCESS, order.getId());
 
     }
+
+
+    /**
+     * @description: //TODO 根据预约ID,查询预约相关信息(体检人,预约日期,套餐名称,预约类型)
+     * @param: [id]
+     * @return: java.util.Map<java.lang.String, java.lang.Object>
+     */
+    @Override
+    public Map<String, Object> findById(Integer id) throws Exception {
+        Map map = orderDao.findById4Detail(id);
+        if (map != null) {
+            Date orderDate = (Date) map.get("orderDate");
+            map.put("orderDate", DateUtils.parseDate2String(orderDate));
+        }
+        return map;
+    }
 }

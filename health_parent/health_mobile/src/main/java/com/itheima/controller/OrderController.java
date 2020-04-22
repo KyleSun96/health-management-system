@@ -77,4 +77,21 @@ public class OrderController {
             return new Result(false, MessageConstant.VALIDATECODE_ERROR);
         }
     }
+
+
+    /**
+     * @description: //TODO 根据预约ID,查询预约相关信息(体检人,预约日期,套餐名称,预约类型)
+     * @param: [id]
+     * @return: com.itheima.entity.Result
+     */
+    @RequestMapping("/findById")
+    public Result findById(Integer id) {
+        try {
+            Map<String, Object> map = orderService.findById(id);
+            return new Result(true, MessageConstant.QUERY_ORDER_SUCCESS,map);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, MessageConstant.QUERY_ORDER_FAIL);
+        }
+    }
 }

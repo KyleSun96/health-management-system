@@ -29,7 +29,7 @@
         <!--指定字符集-->
         <property name="defaultEncoding" value="UTF-8"/>
     </bean>
-    <!--加载属性文件，后期在java代码中会使用到属性文件中定义的key和value-->
+    <!--加载属性文件，用于指定静态化页面的输出地址: key value格式-->
     <context:property-placeholder location="classpath:freemarker.properties"/>
 
 </beans>

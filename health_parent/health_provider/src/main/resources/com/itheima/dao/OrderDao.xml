@@ -49,7 +49,7 @@
     </select>
 
 
-    <!--根据预约id查询预约信息，包括体检人信息、套餐信息-->
+    <!--根据预约ID,查询预约相关信息(体检人,预约日期,套餐名称,预约类型)-->
     <select id="findById4Detail" parameterType="int" resultType="map">
         select m.name member ,s.name setmeal,o.orderDate orderDate,o.orderType orderType
         from
