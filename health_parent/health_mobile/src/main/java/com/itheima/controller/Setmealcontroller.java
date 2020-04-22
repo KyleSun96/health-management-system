@@ -20,7 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/setmeal")
-public class Setmealcontroller {
+public class SetmealController {
 
     @Reference
     private SetmealService setmealService;
