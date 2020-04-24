@@ -30,7 +30,7 @@ public class SpringSecurityUserService implements UserDetailsService {
         user1.setPassword("admin");
 
         User user2 = new User();
-        user2.setUsername("xiaoming");
+        user2.setUsername("zhangsan");
         user2.setPassword("1234");
 
         // 用户名作为key,用户对象作为value

@@ -32,7 +32,18 @@
             pattern:描述拦截规则,/** 表示拦截所有请求
             access:指定所需的访问角色或者访问权限
 		-->
-        <security:intercept-url pattern="/**" access="hasRole('ROLE_ADMIN')"/>
+        <!--只要认证通过(登录)就可以访问-->
+        <security:intercept-url pattern="/index.html" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/pages/a.html" access="isAuthenticated()"/>
+
+        <!--拥有add权限就可以访问b.html页面-->
+        <security:intercept-url pattern="/pages/b.html" access="hasAuthority('add')"/>
+
+        <!--拥有ROLE_ADMIN角色就可以访问c.html页面-->
+        <security:intercept-url pattern="/pages/c.html" access="hasRole('ROLE_ADMIN')"/>
+
+        <!--拥有ROLE_ADMIN角色就可以访问d.html页面，注意：此处虽然写的是ADMIN角色，框架会自动加上前缀ROLE_-->
+        <security:intercept-url pattern="/pages/d.html" access="hasRole('ADMIN')"/>
 
         <!--form‐login：定义表单登录信息-->
         <security:form-login
@@ -42,6 +53,14 @@
                 login-processing-url="/login.do"
                 default-target-url="/index.html"
                 authentication-failure-url="/pages/login.html"/>
+
+        <!--
+            logout：退出登录
+            logout-url：退出登录操作对应的请求路径
+            logout-success-url：退出登录后的跳转页面
+        -->
+        <security:logout logout-url="/logout.do"
+                         logout-success-url="/pages/login.html" invalidate-session="true"/>
 
         <!--
             csrf：对应CsrfFilter过滤器
@@ -70,6 +89,15 @@
     <bean id="passwordEncoder"
           class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 
+    <!--开启spring注解使用-->
+    <context:annotation-config/>
+
+    <!--配置组件扫描，用于扫描Controller-->
     <mvc:annotation-driven/>
+    <context:component-scan base-package="com.itheima.controller"/>
+
+    <!--开启注解方式权限控制-->
+    <security:global-method-security pre-post-annotations="enabled"/>
+
 
 </beans>

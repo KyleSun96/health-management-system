@@ -78,6 +78,8 @@ public class SpringSecurityUserService2 implements UserDetailsService {
             if (username.equals("admin")) {
                 // 授予角色
                 list.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+                // 授权
+                list.add(new SimpleGrantedAuthority("add"));
             }
             org.springframework.security.core.userdetails.User securityUser =
                     new org.springframework.security.core.userdetails.User(username, user.getPassword(), list);
