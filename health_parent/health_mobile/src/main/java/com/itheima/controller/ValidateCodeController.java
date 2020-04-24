@@ -66,17 +66,16 @@ public class ValidateCodeController {
      */
     @RequestMapping("/send4Login")
     public Result send4Login(String telephone) {
-        /*// 随机生成4位数字验证码
+        // 随机生成4位数字验证码
         Integer validateCode = ValidateCodeUtils.generateValidateCode(6);
         System.out.println("validateCode: " + validateCode);
         Jedis resource = null;
         try {
             // 给用户发送验证码 --> SMSUtils.sendShortMessage(验证码模板code,用户电话号码,验证码)
             SMSUtils.sendShortMessage(SMSUtils.VALIDATE_CODE, telephone, validateCode.toString());
-            *//*
-                若发送成功,将验证码保存到 Redis（5分钟） --> setex(存储的key名,Redis过期时间,存储的value值)
+             /*   若发送成功,将验证码保存到 Redis（5分钟） --> setex(存储的key名,Redis过期时间,存储的value值)
                     为避免Redis中存储的key名重复,选择拼接: 用户的号码 + Redis存储短信类型
-             *//*
+             */
             resource = jedisPool.getResource();
             resource.setex(telephone + RedisMessageConstant.SENDTYPE_LOGIN, 300, validateCode.toString());
             return new Result(true, MessageConstant.SEND_VALIDATECODE_SUCCESS);
@@ -87,23 +86,6 @@ public class ValidateCodeController {
             if (resource != null) {
                 resource.close();
             }
-        }*/
-        //随机生成6位数字验证码
-        Integer validateCode = ValidateCodeUtils.generateValidateCode(6);
-        System.out.println("validateCode: " + validateCode);
-        //给用户发送验证码
-        try {
-            SMSUtils.sendShortMessage(SMSUtils.VALIDATE_CODE, telephone, validateCode.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new Result(false, MessageConstant.SEND_VALIDATECODE_FAIL);
         }
-        //将验证码保存到redis（5分钟）
-        jedisPool.getResource().setex(telephone + RedisMessageConstant.SENDTYPE_LOGIN, 300, validateCode.toString());
-        return new Result(true, MessageConstant.SEND_VALIDATECODE_SUCCESS);
-
-
     }
-
-
 }
