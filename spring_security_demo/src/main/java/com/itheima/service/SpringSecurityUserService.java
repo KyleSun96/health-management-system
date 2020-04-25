@@ -30,7 +30,7 @@ public class SpringSecurityUserService implements UserDetailsService {
         user1.setPassword("admin");
 
         User user2 = new User();
-        user2.setUsername("zhangsan");
+        user2.setUsername("xiaoming");
         user2.setPassword("1234");
 
         // 用户名作为key,用户对象作为value
@@ -67,9 +67,7 @@ public class SpringSecurityUserService implements UserDetailsService {
                 // 授予角色
                 list.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
             }
-            org.springframework.security.core.userdetails.User securityUser =
-                    new org.springframework.security.core.userdetails.User(username, "{noop}" + user.getPassword(), list);
-            return securityUser;
+            return new org.springframework.security.core.userdetails.User(username, "{noop}" + user.getPassword(), list);
         }
     }
 }

@@ -39,7 +39,7 @@ public class SpringSecurityUserService2 implements UserDetailsService {
         user1.setPassword(passwordEncoder.encode("admin"));
 
         User user2 = new User();
-        user2.setUsername("zhangsan");
+        user2.setUsername("xiaoming");
         user2.setPassword(passwordEncoder.encode("1234"));
 
         map.put(user1.getUsername(), user1);
@@ -81,9 +81,7 @@ public class SpringSecurityUserService2 implements UserDetailsService {
                 // 授权
                 list.add(new SimpleGrantedAuthority("add"));
             }
-            org.springframework.security.core.userdetails.User securityUser =
-                    new org.springframework.security.core.userdetails.User(username, user.getPassword(), list);
-            return securityUser;
+            return new org.springframework.security.core.userdetails.User(username, user.getPassword(), list);
         }
     }
 }
