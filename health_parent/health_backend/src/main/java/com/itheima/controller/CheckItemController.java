@@ -7,6 +7,7 @@ import com.itheima.entity.QueryPageBean;
 import com.itheima.entity.Result;
 import com.itheima.pojo.CheckItem;
 import com.itheima.service.CheckItemService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -68,6 +69,7 @@ public class CheckItemController {
      * @return: com.itheima.entity.Result
      */
     @RequestMapping("/delete.do")
+    @PreAuthorize("hasAuthority('CHECKITEM_DELETE')")
     public Result delete(Integer id) { // id绑定在URL参数中,因此不需要加 @RequestBody
         try {
             checkItemService.deleteById(id);

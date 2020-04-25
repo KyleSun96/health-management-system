@@ -334,6 +334,9 @@
                             // 删除失败
                             this.$message.error(res.data.message);
                         }
+                        //  此catch对应 delete.do 后面的then
+                    }).catch((r) => {
+                        this.showMessage(r);
                     });
                     /*
                         this.findPage();
@@ -343,6 +346,7 @@
                         从而可能会出现先进行分页查询,再删除数据,
                         导致数据实际已经删除,但是页面上还有本条数据显示,再次刷新才能消失
                     */
+                    //  此catch对应 handleDelete(row) 后面的then
                 }).catch(() => {
                     this.$message.info('已取消删除');
                 });
@@ -374,9 +378,19 @@
                 this.pagination.currentPage = currentPage;
                 //重新调用查询分页方法
                 this.findPage();
+            },
+
+            // 判断用户是否有权限进行相应操作
+            showMessage(r) {
+                if (r === 'Error: Request failed with status code 403') {
+                    //权限不足
+                    this.$message.error('您尚无此操作权限');
+                    return;
+                } else {
+                    this.$message.error('未知错误');
+                    return;
+                }
             }
-
-
         }
     })
 </script>
