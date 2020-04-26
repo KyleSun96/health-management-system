@@ -2,6 +2,8 @@ package com.itheima.service;
 
 import com.itheima.pojo.Member;
 
+import java.util.List;
+
 /**
  * @Program: Itcast_health
  * @InterfaceName: MemberService
@@ -15,4 +17,7 @@ public interface MemberService {
 
     // 注册会员,保存会员信息
     void add(Member member);
+
+    // 根据月份查询会员数量
+    List<Integer> findMemberCountByMonths(List<String> months);
 }

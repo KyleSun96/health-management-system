@@ -8,6 +8,9 @@ import com.itheima.utils.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @Program: Itcast_health
  * @ClassName: MemberServiceImpl
@@ -48,6 +51,25 @@ public class MemberServiceImpl implements MemberService {
         }
         memberDao.add(member);
 
+    }
+
+
+    /**
+     * @description: //TODO 根据月份查询会员数量
+     * @param: [months]
+     * @return: java.util.List<java.lang.Integer>
+     */
+    @Override
+    public List<Integer> findMemberCountByMonths(List<String> months) {
+        List<Integer> memberCount = new ArrayList<>();
+
+        // 2020.10 --> 2020.10.31
+        for (String month : months) {
+            String date = month + ".31";
+            Integer count = memberDao.findMemberCountBeforeDate(date);
+            memberCount.add(count);
+        }
+        return memberCount;
     }
 
 
