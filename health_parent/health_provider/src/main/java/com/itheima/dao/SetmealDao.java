@@ -29,4 +29,6 @@ public interface SetmealDao {
     // 根据套餐的ID查询详细信息(包括套餐基本信息,套餐包含的检查组信息,检查组包含的检查项信息)
     Setmeal findById(int id);
 
+    // 查询套餐预约占比数据
+    List<Map<String, Object>> findSetmealCount();
 }

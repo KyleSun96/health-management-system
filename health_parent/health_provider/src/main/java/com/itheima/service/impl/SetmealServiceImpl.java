@@ -204,6 +204,17 @@ public class SetmealServiceImpl implements SetmealService {
 
 
     /**
+     * @description: //TODO 查询套餐预约占比数据
+     * @param: []
+     * @return: java.util.List<java.util.Map < java.lang.String, java.lang.Object>>
+     */
+    @Override
+    public List<Map<String, Object>> findSetmealCount() {
+        return setmealDao.findSetmealCount();
+    }
+
+
+    /**
      * @Description: //TODO 设置套餐和检查项的多对多的关联关系
      * @Param: [setmealId, checkgroupIds]
      * @return: void

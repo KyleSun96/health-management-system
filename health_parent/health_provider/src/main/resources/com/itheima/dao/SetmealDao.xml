@@ -4,7 +4,6 @@
 
 <mapper namespace="com.itheima.dao.SetmealDao">
 
-
     <!--插入套餐数据-->
     <insert id="add" parameterType="com.itheima.pojo.Setmeal">
         /*
@@ -54,5 +53,16 @@
         select * from t_setmeal where id = #{id}
     </select>
 
+
+    <!--查询套餐预约占比数据-->
+    <select id="findSetmealCount" resultType="map">
+        SELECT
+            s.`name`,
+            COUNT( o.id ) VALUE
+        FROM
+            t_order o
+            INNER JOIN t_setmeal s ON o.setmeal_id = s.id
+            GROUP BY s.NAME
+    </select>
 
 </mapper>

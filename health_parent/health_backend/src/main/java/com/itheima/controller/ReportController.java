@@ -4,6 +4,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.itheima.constant.MessageConstant;
 import com.itheima.entity.Result;
 import com.itheima.service.MemberService;
+import com.itheima.service.SetmealService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,7 +14,7 @@ import java.util.*;
 /**
  * @Program: Itcast_health
  * @ClassName: ReportController
- * @Description: 报表操作
+ * @Description: 报表操作管理
  * @Author: KyleSun
  **/
 @RestController
@@ -22,9 +23,11 @@ public class ReportController {
 
     @Reference
     private MemberService memberService;
+    @Reference
+    private SetmealService setmealService;
 
     /**
-     * @description: //TODO 会员数量折线图数据
+     * @description: //TODO 会员数量--折线图
      * @param: []
      * @return: com.itheima.entity.Result
      */
@@ -53,4 +56,52 @@ public class ReportController {
 
         return new Result(true, MessageConstant.GET_MEMBER_NUMBER_REPORT_SUCCESS, map);
     }
+
+
+    /**
+     * @description: //TODO 套餐预约占比--饼形图
+     * @param: []
+     * @return: com.itheima.entity.Result
+     */
+    @RequestMapping("/getSetmealReport.do")
+    public Result getSetmealReport() {
+
+        /*
+            分析需要的数据,构造对应的容器
+
+            "data":{
+                    "setmealNames":['套餐1','套餐2','套餐3'],
+                    "setmealCount":[
+                        {"name":"套餐1","value":10},
+                        {"name":"套餐2","value":20},
+                        {"name":"套餐3","value":30}
+                    ]
+                  }
+
+            重复数据,查询一次setmealCount,setmealNames再从setmealCount获取即可
+         */
+
+        try {
+            // "data"
+            Map<String, Object> data = new HashMap<>();
+
+            // "setmealCount"
+            List<Map<String, Object>> setmealCount = setmealService.findSetmealCount();
+            data.put("setmealCount", setmealCount);
+
+            // "setmealNames"
+            List<String> setmealNames = new ArrayList<>();
+            for (Map<String, Object> map : setmealCount) {
+                String name = (String) map.get("name");
+                setmealNames.add(name);
+            }
+            data.put("setmealNames", setmealNames);
+
+            return new Result(true, MessageConstant.GET_SETMEAL_COUNT_REPORT_SUCCESS, data);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, MessageConstant.GET_SETMEAL_COUNT_REPORT_FAIL);
+        }
+    }
+
 }
