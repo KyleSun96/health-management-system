@@ -87,7 +87,7 @@
     <!--查询热门套餐前4条-->
     <select id="findHotSetmeal" resultType="map">
         SELECT
-            s.NAME,
+            s.name,
             count( o.id ) setmeal_count,
             count( o.id )/( SELECT count( id ) FROM t_order ) proportion
         FROM

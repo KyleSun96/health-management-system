@@ -121,7 +121,11 @@
         },
         created() {
             axios.get("/report/getBusinessReportData.do").then((res) => {
-                this.reportData = res.data.data;
+                if (res.data.flag) {
+                    this.reportData = res.data.data;
+                } else {
+                    this.$message.error(res.data.message);
+                }
             });
         },
         methods: {

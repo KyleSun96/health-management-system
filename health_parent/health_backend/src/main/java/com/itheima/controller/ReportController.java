@@ -4,6 +4,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.itheima.constant.MessageConstant;
 import com.itheima.entity.Result;
 import com.itheima.service.MemberService;
+import com.itheima.service.ReportService;
 import com.itheima.service.SetmealService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +26,8 @@ public class ReportController {
     private MemberService memberService;
     @Reference
     private SetmealService setmealService;
+    @Reference
+    private ReportService reportService;
 
     /**
      * @description: //TODO 会员数量--折线图
@@ -104,4 +107,19 @@ public class ReportController {
         }
     }
 
+
+    /**
+     * @description: //TODO 运营数据统计
+     * @param: []
+     * @return: com.itheima.entity.Result
+     */
+    @RequestMapping("/getBusinessReportData.do")
+    public Result getBusinessReportData() {
+        try {
+            Map<String, Object> data = reportService.getBusinessReportData();
+            return new Result(true, MessageConstant.GET_BUSINESS_REPORT_SUCCESS, data);
+        } catch (Exception e) {
+            return new Result(false, MessageConstant.GET_BUSINESS_REPORT_FAIL);
+        }
+    }
 }
