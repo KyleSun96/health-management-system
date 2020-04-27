@@ -57,12 +57,12 @@
     <!--查询套餐预约占比数据-->
     <select id="findSetmealCount" resultType="map">
         SELECT
-            s.`name`,
-            COUNT( o.id ) VALUE
+            s.name,
+            COUNT( o.id ) value
         FROM
             t_order o
             INNER JOIN t_setmeal s ON o.setmeal_id = s.id
-            GROUP BY s.NAME
+            GROUP BY s.name
     </select>
 
 </mapper>

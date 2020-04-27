@@ -81,11 +81,11 @@ public class ReportController {
             重复数据,查询一次setmealCount,setmealNames再从setmealCount获取即可
          */
 
-        try {
-            // "data"
-            Map<String, Object> data = new HashMap<>();
+        // "data"
+        Map<String, Object> data = new HashMap<>();
 
-            // "setmealCount"
+        try {
+            // "setmealCount" --> 查询套餐预约占比数据
             List<Map<String, Object>> setmealCount = setmealService.findSetmealCount();
             data.put("setmealCount", setmealCount);
 
