@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * @program: Itcast_health
+ * @Program: Itcast_health
  * @ClassName: CheckItemController
- * @description: 检查项管理
+ * @Description: 检查项管理
  **/
 
 @RestController
@@ -35,8 +35,8 @@ public class CheckItemController {
     */
 
     /**
-     * @Description: //TODO 新增检查项
-     * @Param: [checkItem]
+     * @description: //TODO 新增检查项
+     * @param: [checkItem]
      * @return: com.itheima.entity.Result
      */
     @RequestMapping("/add.do")
@@ -53,8 +53,8 @@ public class CheckItemController {
 
 
     /**
-     * @Description: //TODO 检查项分页查询
-     * @Param: [queryPageBean]
+     * @description: //TODO 检查项分页查询
+     * @param: [queryPageBean]
      * @return: com.itheima.entity.PageResult
      */
     @RequestMapping("/findPage.do")
@@ -64,8 +64,8 @@ public class CheckItemController {
 
 
     /**
-     * @Description: //TODO 删除检查项
-     * @Param: [id]
+     * @description: //TODO 删除检查项
+     * @param: [id]
      * @return: com.itheima.entity.Result
      */
     @RequestMapping("/delete.do")
@@ -83,8 +83,8 @@ public class CheckItemController {
 
 
     /**
-     * @Description: //TODO 编辑检查项
-     * @Param: [checkItem]
+     * @description: //TODO 编辑检查项
+     * @param: [checkItem]
      * @return: com.itheima.entity.Result
      */
     @RequestMapping("/edit.do")
@@ -101,8 +101,8 @@ public class CheckItemController {
 
 
     /**
-     * @Description: //TODO 编辑检查项弹窗 根据检查项Id数据回显
-     * @Param: [id]
+     * @description: //TODO 编辑检查项弹窗: 数据回显
+     * @param: [id]
      * @return: com.itheima.entity.Result
      */
     @RequestMapping("/findById.do")
@@ -121,8 +121,8 @@ public class CheckItemController {
 
 
     /**
-     * @Description: //TODO 查询所有检查项
-     * @Param: []
+     * @description: //TODO 查询所有检查项
+     * @param: []
      * @return: com.itheima.entity.Result
      */
     @RequestMapping("/findAll.do")

@@ -6,9 +6,9 @@ import com.itheima.pojo.CheckItem;
 import java.util.List;
 
 /**
- * @program: Itcast_health
+ * @Program: Itcast_health
  * @InterfaceName: CheckItemDao
- * @description:
+ * @Description:
  **/
 public interface CheckItemDao {
 

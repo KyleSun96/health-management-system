@@ -7,9 +7,9 @@ import com.itheima.pojo.CheckItem;
 import java.util.List;
 
 /**
- * @program: Itcast_health
+ * @Program: Itcast_health
  * @InterfaceName: CheckItemService
- * @description: 检查项服务接口
+ * @Description: 检查项服务接口
  **/
 public interface CheckItemService {
 

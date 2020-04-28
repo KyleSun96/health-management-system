@@ -232,4 +232,15 @@ public class SetmealServiceImpl implements SetmealService {
     }
 
 
+    /**
+     * @description: //TODO 根据套餐ID查询,套餐关联多少检查组ID
+     * @param: [setmealId]
+     * @return: java.util.List<java.lang.Integer>
+     */
+    @Override
+    public List<Integer> findRelOfMealAndGroup(Integer setmealId) {
+        return setmealDao.findRelOfMealAndGroup(setmealId);
+    }
+
+
 }

@@ -6,6 +6,7 @@ import com.itheima.constant.RedisConstant;
 import com.itheima.entity.PageResult;
 import com.itheima.entity.QueryPageBean;
 import com.itheima.entity.Result;
+import com.itheima.pojo.CheckGroup;
 import com.itheima.pojo.Setmeal;
 import com.itheima.service.SetmealService;
 import com.itheima.utils.QiNiuUtils;
@@ -18,13 +19,14 @@ import org.springframework.web.multipart.MultipartFile;
 import redis.clients.jedis.JedisPool;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 /**
- * @program: Itcast_health
+ * @Program: Itcast_health
  * @ClassName: SetmealController
- * @description: 体检套餐管理
- * @author: KyleSun
+ * @Description: 体检套餐管理
+ * @Author: KyleSun
  **/
 @RestController
 @RequestMapping("/setmeal")
@@ -37,8 +39,8 @@ public class SetmealController {
 
 
     /**
-     * @Description: //TODO 图片上传到云服务器
-     * @Param: [multipartFile]
+     * @description: //TODO 图片上传到云服务器
+     * @param: [multipartFile]
      * @return: com.itheima.entity.Result
      */
     @RequestMapping("/upload.do")
@@ -75,8 +77,8 @@ public class SetmealController {
 
 
     /**
-     * @Description: //TODO 新增套餐
-     * @Param: [setmeal, checkgroupIds]
+     * @description: //TODO 新增套餐
+     * @param: [setmeal, checkgroupIds]
      * @return: com.itheima.entity.Result
      */
     @RequestMapping("/add.do")
@@ -92,8 +94,8 @@ public class SetmealController {
 
 
     /**
-     * @Description: //TODO 分页查询
-     * @Param: [queryPageBean]
+     * @description: //TODO 分页查询
+     * @param: [queryPageBean]
      * @return: com.itheima.entity.PageResult
      */
     @RequestMapping("/findPage.do")
@@ -102,4 +104,37 @@ public class SetmealController {
     }
 
 
+    /**
+     * @description: //TODO 根据ID查询套餐
+     * @param: [setmealId]
+     * @return: com.itheima.entity.Result
+     */
+    @RequestMapping("/findById.do")
+    public Result findById(Integer setmealId) {
+        try {
+            Setmeal setmeal = setmealService.findById(setmealId);
+            return new Result(true, MessageConstant.QUERY_SETMEAL_SUCCESS, setmeal);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, MessageConstant.QUERY_SETMEAL_FAIL);
+        }
+    }
+
+
+    /**
+     * @description: //TODO 根据套餐ID查询,套餐关联多少检查组ID,以数组形式返回
+     * @param: [setmealId]
+     * @return: com.itheima.entity.Result
+     */
+    @RequestMapping("/findRelOfMealAndGroup.do")
+    public Result findRelOfMealAndGroup(Integer setmealId) {
+        try {
+            // 将套餐关联多少检查组ID 以数组形式返回
+            List<Integer> checkgroupIds = setmealService.findRelOfMealAndGroup(setmealId);
+            return new Result(true, MessageConstant.QUERY_CHECKGROUP_SUCCESS, checkgroupIds);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, MessageConstant.QUERY_CHECKGROUP_FAIL);
+        }
+    }
 }

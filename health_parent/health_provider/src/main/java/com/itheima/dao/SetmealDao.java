@@ -31,4 +31,7 @@ public interface SetmealDao {
 
     // 查询套餐预约占比数据
     List<Map<String, Object>> findSetmealCount();
+
+    // 根据套餐ID查询,套餐关联多少检查组ID
+    List<Integer> findRelOfMealAndGroup(Integer setmealId);
 }

@@ -14,10 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * @program: Itcast_health
+ * @Program: Itcast_health
  * @ClassName: CheckItemServiceImpl
- * @description: 检查项服务
- * @author: KyleSun
+ * @Description: 检查项服务
+ * @Author: KyleSun
  **/
 //用dubbo的service接口,用于暴露服务
 @Service(interfaceClass = CheckItemService.class)
@@ -29,7 +29,7 @@ public class CheckItemServiceImpl implements CheckItemService {
 
     /**
      * @Description: //TODO 新增检查项
-     * @Param: [checkItem]
+     * @param: [checkItem]
      * @return: void
      */
     @Override
@@ -39,8 +39,8 @@ public class CheckItemServiceImpl implements CheckItemService {
 
 
     /**
-     * @Description: //TODO 检查项分页查询
-     * @Param: [queryPageBean]
+     * @description: //TODO 检查项分页查询
+     * @param: [queryPageBean]
      * @return: com.itheima.entity.PageResult
      */
     @Override
@@ -62,8 +62,8 @@ public class CheckItemServiceImpl implements CheckItemService {
 
 
     /**
-     * @Description: //TODO 删除检查项
-     * @Param: [id]
+     * @description: //TODO 删除检查项
+     * @param: [id]
      * @return: void
      */
     @Override
@@ -80,8 +80,8 @@ public class CheckItemServiceImpl implements CheckItemService {
 
 
     /**
-     * @Description: //TODO 编辑检查项
-     * @Param: [checkItem]
+     * @description: //TODO 编辑检查项
+     * @param: [checkItem]
      * @return: void
      */
     @Override
@@ -91,8 +91,8 @@ public class CheckItemServiceImpl implements CheckItemService {
 
 
     /**
-     * @Description: //TODO 根据检查项Id查询数据
-     * @Param: [id]
+     * @description: //TODO 根据检查项Id查询数据
+     * @param: [id]
      * @return: com.itheima.pojo.CheckItem
      */
     @Override
@@ -102,8 +102,8 @@ public class CheckItemServiceImpl implements CheckItemService {
 
 
     /**
-     * @Description: //TODO 查询所有检查项
-     * @Param: []
+     * @description: //TODO 查询所有检查项
+     * @param: []
      * @return: java.util.List<com.itheima.pojo.CheckItem>
      */
     @Override

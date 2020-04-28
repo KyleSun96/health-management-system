@@ -254,8 +254,8 @@
                         // 此处表单将this.formData提交给后台的add.do,是json对象
                         // 此处的res是add.do方法返回的,已经由@RestController将java对象转为json对象
                         axios.post("/checkitem/add.do", this.formData).then((res) => {
-                            // res.data中的data是res的一个属性,用于接收后台返回
-                            // 此处的res.data是controller返回的result对象,
+                            // res.data中的data是res的一个属性,用于接收后台返回数据
+                            // 此处的res.data是controller返回的result对象
                             if (res.data.flag) {
                                 // 如果flag为true,表示新增成功,则重新调用查询方法,查询出新的数据
                                 this.findPage();

@@ -65,4 +65,9 @@
             GROUP BY s.name
     </select>
 
+
+    <!--根据套餐ID查询,套餐关联多少检查组ID-->
+    <select id="findRelOfMealAndGroup" parameterType="int" resultType="int">
+        select checkgroup_id from t_setmeal_checkgroup where setmeal_id = #{setmealId}
+    </select>
 </mapper>
