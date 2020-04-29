@@ -34,4 +34,11 @@ public interface SetmealDao {
 
     // 根据套餐ID查询,套餐关联多少检查组ID
     List<Integer> findRelOfMealAndGroup(Integer setmealId);
+
+    // 清理当前套餐与检查组的关联关系
+    void deleteRelation(Integer id);
+
+    // 根据ID动态修改 套餐基本信息
+    void edit(Setmeal setmeal);
+
 }

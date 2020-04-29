@@ -70,4 +70,44 @@
     <select id="findRelOfMealAndGroup" parameterType="int" resultType="int">
         select checkgroup_id from t_setmeal_checkgroup where setmeal_id = #{setmealId}
     </select>
+
+    <!--清理当前套餐与检查组的关联关系-->
+    <delete id="deleteRelation" parameterType="int">
+        delete from t_setmeal_checkgroup where setmeal_id = #{setmealId}
+    </delete>
+
+    <!--根据ID动态修改 套餐基本信息-->
+    <update id="edit" parameterType="com.itheima.pojo.Setmeal">
+        update t_setmeal
+        -- set标签可以去除多余的逗号
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="code != null">
+                code = #{code},
+            </if>
+            <if test="helpCode != null">
+                helpCode = #{helpCode},
+            </if>
+            <if test="sex != null">
+                sex = #{sex},
+            </if>
+            <if test="age != null">
+                age = #{age},
+            </if>
+            <if test="price != null">
+                price = #{price},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+            <if test="attention != null">
+                attention = #{attention},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+
 </mapper>

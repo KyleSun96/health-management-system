@@ -137,4 +137,22 @@ public class SetmealController {
             return new Result(false, MessageConstant.QUERY_CHECKGROUP_FAIL);
         }
     }
+
+
+    /**
+     * @description: //TODO 编辑套餐
+     * @param: [setmeal, checkgroupIds]
+     * @return: com.itheima.entity.Result
+     */
+    @RequestMapping("/edit.do")
+    public Result edit(@RequestBody Setmeal setmeal, Integer[] checkgroupIds) {
+        try {
+            setmealService.edit(setmeal, checkgroupIds);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, MessageConstant.EDIT_SETMEAL_FAIL);
+        }
+        return new Result(true, MessageConstant.EDIT_SETMEAL_SUCCESS);
+    }
+
 }

@@ -33,4 +33,7 @@ public interface SetmealService {
 
     // 根据套餐ID查询,套餐关联多少检查组ID
     List<Integer> findRelOfMealAndGroup(Integer setmealId);
+
+    // 编辑套餐
+    void edit(Setmeal setmeal, Integer[] checkgroupIds);
 }

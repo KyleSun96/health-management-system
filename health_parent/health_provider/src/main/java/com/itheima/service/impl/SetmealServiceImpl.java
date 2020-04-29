@@ -243,4 +243,23 @@ public class SetmealServiceImpl implements SetmealService {
     }
 
 
+    /**
+     * @description: //TODO 编辑套餐
+     * @param: [setmeal, checkgroupIds]
+     * @return: void
+     */
+    @Override
+    public void edit(Setmeal setmeal, Integer[] checkgroupIds) {
+        // 修改套餐基本信息
+        setmealDao.edit(setmeal);
+
+        // 清理当前套餐与检查组的关联关系
+        setmealDao.deleteRelation(setmeal.getId());
+
+        // 重新建立当前套餐与检查组的关联关系
+        setRelOfMealAndGroup(setmeal.getId(), checkgroupIds);
+
+    }
+
+
 }
