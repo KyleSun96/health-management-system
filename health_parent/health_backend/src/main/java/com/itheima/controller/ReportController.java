@@ -6,12 +6,18 @@ import com.itheima.entity.Result;
 import com.itheima.service.MemberService;
 import com.itheima.service.ReportService;
 import com.itheima.service.SetmealService;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -221,6 +227,50 @@ public class ReportController {
 
             return null;
         } catch (Exception e) {
+            return new Result(false, MessageConstant.GET_BUSINESS_REPORT_FAIL);
+        }
+    }
+
+
+    /**
+     * @description: //TODO 导出运营数据到PDF文件并提供客户端下载
+     * @param: [request, response]
+     * @return: com.itheima.entity.Result
+     */
+    @RequestMapping("/exportBusinessReport4PDF")
+    public Result exportBusinessReport4PDF(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            Map<String, Object> result = reportService.getBusinessReportData();
+
+            //取出返回结果数据，准备将报表数据写入到Excel文件中
+            List<Map> hotSetmeal = (List<Map>) result.get("hotSetmeal");
+
+            //动态获取pdf模板文件绝对磁盘路径
+            String jrxmlPath = request.getSession().getServletContext().getRealPath("template") + File.separator + "health_business.jrxml";
+            String jasperPath = request.getSession().getServletContext().getRealPath("template") + File.separator + "health_business.jasper";
+
+            //编译模板
+            JasperCompileManager.compileReportToFile(jrxmlPath, jasperPath);
+
+            //填充数据---使用JavaBean数据源方式填充
+            JasperPrint jasperPrint =
+                    JasperFillManager.fillReport(jasperPath, result,
+                            new JRBeanCollectionDataSource(hotSetmeal));
+
+            //创建输出流，用于从服务器写数据到客户端浏览器
+            ServletOutputStream out = response.getOutputStream();
+            response.setContentType("application/pdf");
+            response.setHeader("content-Disposition", "attachment;filename=report.pdf");
+
+            //输出文件
+            JasperExportManager.exportReportToPdfStream(jasperPrint, out);
+
+            out.flush();
+            out.close();
+
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
             return new Result(false, MessageConstant.GET_BUSINESS_REPORT_FAIL);
         }
     }
